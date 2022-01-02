@@ -44,9 +44,9 @@ export const msfStore = reactive<MSFStore>({
 
     if (target < 0 || target >= totalSteps) return;
 
-    if (target > currentStep) {
-      this.error = '';
+    this.error = '';
 
+    if (target > currentStep) {
       const currentStepFields = getObjectEntries(fields).filter(([, { step }]) => step === currentStep);
 
       const stepIsValid = currentStepFields.every(([fieldName, { element }]) => {
