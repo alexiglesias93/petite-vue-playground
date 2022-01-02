@@ -32,7 +32,7 @@ export const Tabs: Component = () => ({
    * @param targetStep The target step.
    * @param tabs The {@link TabsElement}.
    */
-  switchTab(targetStep: number, tabs: TabsElement) {
-    simulateEvent(tabs.children[targetStep], 'click');
+  switchTab(targetStep: number, { children }: TabsElement) {
+    simulateEvent(children[targetStep], 'click');
   },
 });

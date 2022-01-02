@@ -2,10 +2,10 @@ import { FormField, getObjectEntries } from '@finsweet/ts-utils';
 import { reactive } from 'petite-vue';
 
 type MSFStore = {
+  error: string;
   totalSteps: number;
   currentStep: number;
   fields: { [key: string]: { element: FormField; step: number; valid: boolean } };
-  error: string;
 
   /**
    * Increments the current step.
@@ -26,28 +26,28 @@ type MSFStore = {
 };
 
 export const msfStore = reactive<MSFStore>({
+  error: '',
   totalSteps: 0,
   currentStep: 0,
   fields: {},
-  error: '',
 
   incrementStep() {
-    const nextStep = this.currentStep + 1;
-    this.goTo(nextStep);
+    this.goTo(this.currentStep + 1);
   },
 
   decrementStep() {
-    const previousStep = this.currentStep - 1;
-    this.goTo(previousStep);
+    this.goTo(this.currentStep - 1);
   },
 
   goTo(target) {
-    if (target < 0 || target > this.totalSteps) return;
+    const { totalSteps, currentStep, fields } = this;
 
-    if (target > this.currentStep) {
+    if (target < 0 || target >= totalSteps) return;
+
+    if (target > currentStep) {
       this.error = '';
 
-      const currentStepFields = getObjectEntries(this.fields).filter(([, { step }]) => step === this.currentStep);
+      const currentStepFields = getObjectEntries(fields).filter(([, { step }]) => step === currentStep);
 
       const stepIsValid = currentStepFields.every(([fieldName, { element }]) => {
         const fieldIsValid = element.checkValidity();
