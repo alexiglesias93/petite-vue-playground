@@ -22,7 +22,7 @@ type MSFStore = {
    * If the direction is forward, it will only proceed if the `currentStep` is valid.
    * @param target The target step.
    */
-  goTo: (target: number) => void;
+  setStep: (target: number) => void;
 };
 
 export const msfStore = reactive<MSFStore>({
@@ -32,14 +32,14 @@ export const msfStore = reactive<MSFStore>({
   fields: {},
 
   incrementStep() {
-    this.goTo(this.currentStep + 1);
+    this.setStep(this.currentStep + 1);
   },
 
   decrementStep() {
-    this.goTo(this.currentStep - 1);
+    this.setStep(this.currentStep - 1);
   },
 
-  goTo(target) {
+  setStep(target) {
     const { totalSteps, currentStep, fields } = this;
 
     if (target < 0 || target >= totalSteps) return;
