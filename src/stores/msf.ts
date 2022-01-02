@@ -25,7 +25,7 @@ type MSFStore = {
   goTo: (target: number) => void;
 };
 
-const msfStoreDeclaration: MSFStore = {
+export const msfStore = reactive<MSFStore>({
   totalSteps: 0,
   currentStep: 0,
   fields: {},
@@ -64,6 +64,4 @@ const msfStoreDeclaration: MSFStore = {
 
     this.currentStep = target;
   },
-};
-
-export const msfStore = reactive(msfStoreDeclaration);
+});
